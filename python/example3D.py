@@ -53,7 +53,7 @@ print('time read', time()-t0)
 # 3.1 geometrical missalignments
 # if not available, can be computed with github.com/patoguerrero/alignCT/
 
-det_x = 0.228   # (horizontal shift, mm)
+det_x = 0       # (horizontal shift, mm)
 eta = 0         # (detector in-plane tilt, degrees)
 print('x(mm), eta(deg) ', det_x, eta)
 
@@ -92,12 +92,12 @@ print('time NGD', time() - tNGD)
 slices = 20
 FOV = 1400
 
-tFI = time()
+trec = time()
 dev, dataFV  = fista_acv.prepare_data(dataFV, slices, pixels, FOV, 0, sod, voxel)
-recFI = fista_acv.fista_cv3D(dataFV, FOV, vectors, slices, lmbd, q, n_FI, 0, sdd/sod, dev)
-tFI = time() - tFI
+rec = fista_acv.fista_cv3D(dataFV, FOV, vectors, slices, lmbd, q, n_FI, 0, sdd/sod, dev)
+trec = time() - trec
 
-print('time fista-CV', tFI)
+print('time fista-CV', trec)
     
-plt.imshow(recFI[:, :, slices//2])
+plt.imshow(rec[:, :, slices//2])
 plt.show()
